@@ -100,7 +100,8 @@ Signing/notarization for distribution:
 
 ### Linux
 
-Build on Linux (a macOS binary cannot run there):
+Build on Linux (a macOS binary cannot run there). **Full step-by-step guide:
+[readme_linux.md](readme_linux.md).** Summary:
 
 ```bash
 # Debian/Ubuntu build deps

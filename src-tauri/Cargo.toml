@@ -1,0 +1,27 @@
+[package]
+name = "beartasks"
+version = "0.1.0"
+description = "Beartasks — a minimal menu bar / system tray task manager"
+authors = ["Bjorn Sjolund"]
+edition = "2021"
+rust-version = "1.77.2"
+
+# Library target used by `main.rs` (Tauri mobile-entry convention, harmless on desktop).
+[lib]
+name = "beartasks_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-store = "2"
+tauri-plugin-autostart = "2"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Tasks</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <div id="app" aria-label="Beartasks popup">
+      <header class="popup-header" data-tauri-drag-region>
+        <h1 class="popup-title" data-tauri-drag-region>My Tasks</h1>
+        <span id="completed-count" class="completed-count" aria-live="polite">0 done</span>
+      </header>
+
+      <div id="storage-error" class="storage-error" role="alert" hidden></div>
+
+      <main class="popup-body">
+        <ul id="task-list" class="task-list" aria-label="Tasks"></ul>
+        <p id="empty-state" class="empty-state">No tasks yet. Add your first task.</p>
+      </main>
+
+      <footer class="popup-footer">
+        <form id="add-form" class="add-form" autocomplete="off">
+          <input
+            id="add-input"
+            class="add-input"
+            type="text"
+            placeholder="Add a new task..."
+            aria-label="Add a new task"
+            maxlength="500"
+          />
+          <button id="add-button" class="add-button" type="submit" aria-label="Add task">Add</button>
+        </form>
+      </footer>
+    </div>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>

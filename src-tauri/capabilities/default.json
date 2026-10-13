@@ -1,0 +1,14 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissions required by the Beartasks popup window (main). Tray, autostart and window positioning are driven from the Rust side and need no IPC permissions.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-set-focus",
+    "core:window:allow-start-dragging",
+    "store:default"
+  ]
+}

@@ -1,0 +1,328 @@
+/* Beartasks popup styles.
+   Theme colours come from the OS light/dark preference via CSS custom
+   properties so the popup follows the system appearance automatically. */
+
+:root {
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+
+  --radius-control: 6px;
+  --radius-surface: 10px;
+
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    "Noto Sans", "Cantarell", "Ubuntu", sans-serif;
+
+  --transition-fast: 120ms ease;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f5f7;
+    --bg-elevated: #ffffff;
+    --text: #1d1d1f;
+    --text-muted: #86868b;
+    --border: rgba(0, 0, 0, 0.1);
+    --separator: rgba(0, 0, 0, 0.08);
+    --hover: rgba(0, 0, 0, 0.05);
+    --focus-ring: #4a9eff;
+    --accent: #0a84ff;
+    --danger: #ff3b30;
+    --checkbox-border: #b0b0b5;
+    --error-bg: #ffe5e5;
+    --error-text: #8a1f1a;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1e1e20;
+    --bg-elevated: #2a2a2d;
+    --text: #f2f2f5;
+    --text-muted: #98989f;
+    --border: rgba(255, 255, 255, 0.14);
+    --separator: rgba(255, 255, 255, 0.1);
+    --hover: rgba(255, 255, 255, 0.07);
+    --focus-ring: #4a9eff;
+    --accent: #0a84ff;
+    --danger: #ff6961;
+    --checkbox-border: #6b6b70;
+    --error-bg: #4a2323;
+    --error-text: #ffb3ad;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+/* ---------- Header ---------- */
+
+.popup-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  -webkit-app-region: drag;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.completed-count {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- Storage error banner ---------- */
+
+.storage-error {
+  margin: 0 var(--space-4) var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--error-bg);
+  color: var(--error-text);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ---------- Task list ---------- */
+
+.popup-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--separator);
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-1) 0;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  margin: 0 var(--space-2);
+  border-radius: var(--radius-control);
+  transition: background var(--transition-fast);
+}
+
+.task-row:hover,
+.task-row:focus-within {
+  background: var(--hover);
+}
+
+.task-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+  padding: 2px 0;
+}
+
+.task-row.completed .task-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.task-edit-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--focus-ring);
+  border-radius: var(--radius-control);
+  padding: 3px 6px;
+  outline: none;
+}
+
+/* Checkbox styling */
+.task-checkbox {
+  appearance: none;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1.5px solid var(--checkbox-border);
+  border-radius: 5px;
+  background: var(--bg-elevated);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.task-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 4.5px;
+  top: 1.5px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 1.8px 1.8px 0;
+  transform: rotate(45deg);
+}
+
+/* Row action buttons */
+.task-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex: none;
+}
+
+.icon-button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-fast), background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.task-row:hover .icon-button,
+.task-row:focus-within .icon-button,
+.icon-button:focus-visible {
+  opacity: 1;
+}
+
+.icon-button:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.icon-button.delete:hover {
+  color: var(--danger);
+}
+
+.empty-state {
+  margin: var(--space-4);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+/* ---------- Footer ---------- */
+
+.popup-footer {
+  flex: none;
+  border-top: 1px solid var(--separator);
+  padding: var(--space-3) var(--space-4);
+}
+
+.add-form {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.add-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.add-input::placeholder {
+  color: var(--text-muted);
+}
+
+.add-input:focus {
+  border-color: var(--focus-ring);
+}
+
+.add-button {
+  appearance: none;
+  flex: none;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-control);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: filter var(--transition-fast);
+}
+
+.add-button:hover {
+  filter: brightness(1.08);
+}
+
+.add-button:active {
+  filter: brightness(0.92);
+}
+
+/* ---------- Focus visibility ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+/* ---------- Scrollbar ---------- */
+
+.popup-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup-body::-webkit-scrollbar-thumb {
+  background: var(--checkbox-border);
+  border-radius: 4px;
+}
+
+.popup-body::-webkit-scrollbar-track {
+  background: transparent;
+}
